@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GoChaching</string>
+    <string name="searched">Searched:</string>
+    <string name="chache">Cache:</string>
+    <string name="where">where:</string>
+    <string name="search_button">Search</string>
+</resources>
