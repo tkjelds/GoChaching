@@ -9,4 +9,5 @@
     <string name="add_cache_button">ADD CACHE</string>
     <string name="edit_cache_button">EDIT CACHE</string>
     <string name="info_text_view">Info:</string>
+    <string name="List_Caches">LIST CACHES</string>
 </resources>

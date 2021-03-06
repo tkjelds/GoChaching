@@ -2,11 +2,11 @@ package dk.itu.moapd.gocaching
 
 import java.util.*
 
-data class GeoCache(var cache: String, var where: String,var date:Date)
+data class GeoCache(var cache: String, var where: String,var date:Long)
 
-fun GeoCache.getDate() : Date {return this.date}
+fun GeoCache.getDate() : Long {return this.date}
 
-fun GeoCache.setDate(date_: Date){this.date = date_}
+fun GeoCache.setDate(date_: Long){this.date = date_}
 
 fun GeoCache.getCache() : String{ return this.cache }
 
