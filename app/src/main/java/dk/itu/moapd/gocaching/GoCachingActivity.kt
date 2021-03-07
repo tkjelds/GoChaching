@@ -7,29 +7,18 @@ import kotlinx.android.synthetic.main.activity_go_caching.*
 import java.util.*
 
 class GoCachingActivity : AppCompatActivity() {
-    companion object {
-        lateinit var geoCacheDB : GeoCacheDB
-        lateinit var adapter: GeoCacheArrayAdapter
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_go_caching)
-        geoCacheDB = GeoCacheDB.get(this)
-        val geoCaches = geoCacheDB.getGeoCaches()
-        adapter = GeoCacheArrayAdapter(this, geoCaches)
-        //cache_list_view.adapter = adapter
-        add_cache_button.setOnClickListener {
-            val intent = Intent(this, AddGeoCacheActivity::class.java)
-            startActivity(intent)
+        val currentFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment == null){
+            val fragment = GoCachingFragment()
+            supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragment_container,fragment)
+                    .commit()
         }
-
-        edit_cache_button.setOnClickListener {
-            val intent = Intent(this,EditGeoCacheActivity::class.java)
-            startActivity(intent)
-        }
-
-        list_caches_button.setOnClickListener {         cache_list_view.adapter = adapter }
-
     }
 
 }
