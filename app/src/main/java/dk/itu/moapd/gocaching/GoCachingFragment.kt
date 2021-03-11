@@ -50,6 +50,11 @@ class GoCachingFragment: Fragment() {
         }
 
         showList.setOnClickListener {         cache_list_view.adapter = adapter }
+
+        cache_list_view.setOnItemClickListener { parent, view, position, id ->
+            adapter.getItem(position)?.let { geoCacheDB.deleteGeoCache(it) }
+            adapter.notifyDataSetChanged()
+        }
     }
 
 }
