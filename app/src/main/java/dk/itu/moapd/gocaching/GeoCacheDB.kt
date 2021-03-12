@@ -28,10 +28,14 @@ class GeoCacheDB private constructor(context:Context){
         return geoCaches
     }
     fun addGeoCache(cache: String, where: String) {
-        geoCaches.add(GeoCache(cache,where,randomDate()))
+        lastCache.setDate(randomDate())
+        lastCache.setCache(cache)
+        lastCache.setWhere(where)
+        geoCaches.add(lastCache)
     }
     fun updateGeoCache ( cache : String , where : String ) {
-        geoCaches.find{ g -> g.cache == cache }?.where = where
+        geoCaches.find {x -> x == lastCache}?.apply { this.setCache(cache)
+                                                      this.setWhere(where)  }
     }
     fun getLastGeoCacheInfo () : String {
         return  lastCache.where
