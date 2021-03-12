@@ -16,4 +16,10 @@ fun GeoCache.setWhere(where_: String){this.where = where_}
 
 fun GeoCache.setCache(cache_: String){this.cache = cache_}
 
+fun GeoCache.exchange(_geoCache: GeoCache){this.apply {
+    this.setWhere(_geoCache.getWhere())
+    this.setCache(_geoCache.getCache())
+    this.setDate(_geoCache.getDate())
+                                }}
+
 fun GeoCache.toString() : String{return "$cache is placed at $where by $date"}

@@ -22,19 +22,18 @@ class GeoCacheArrayAdapter(context: Context, geoCaches:List<GeoCache>) :
             val inflater = LayoutInflater.from(context)
             view = inflater.inflate(R.layout.list_geo_cache, parent, false)
             viewHolder = GeoCacheViewHolder()
-            viewHolder.apply { this.cache = view.findViewById<View>(R.id.cache_text) as TextView
-                               this.where = view.findViewById<View>(R.id.where_text) as TextView
-                               this.date  = view.findViewById<View>(R.id.date_text) as TextView
-                            }
+            viewHolder.cache = view.findViewById<View>(R.id.cache_text) as TextView
+            viewHolder.where = view.findViewById<View>(R.id.where_text) as TextView
+            viewHolder.date  = view.findViewById<View>(R.id.date_text) as TextView
                             }
         else
             viewHolder = view.tag as GeoCacheViewHolder
         val geoCache = getItem(position)
-        viewHolder.apply {  this.cache!!.text = geoCache?.cache
-                            this.where!!.text = geoCache?.where
-                            this.date!!.text = geoCache?.date.toString()
-                        }
+        viewHolder.cache!!.text = geoCache?.cache
+        viewHolder.where!!.text = geoCache?.where
+        viewHolder.date!!.text = geoCache?.date.toString()
         view?.tag = viewHolder
         return view!!
     }
+
 }

@@ -28,10 +28,9 @@ class GeoCacheDB private constructor(context:Context){
         return geoCaches
     }
     fun addGeoCache(cache: String, where: String) {
-        lastCache.setDate(randomDate())
-        lastCache.setCache(cache)
-        lastCache.setWhere(where)
-        geoCaches.add(lastCache)
+        val _cache = GeoCache(cache,where,randomDate())
+        lastCache.exchange(_cache)
+        geoCaches.add(_cache)
     }
     fun updateGeoCache ( cache : String , where : String ) {
         geoCaches.find {x -> x == lastCache}?.apply { this.setCache(cache)
