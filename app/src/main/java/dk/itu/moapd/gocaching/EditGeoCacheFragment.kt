@@ -9,9 +9,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import java.util.*
 
 class EditGeoCacheFragment : Fragment() {
-    private val geoCache = GeoCache("","", 0)
+    private val geoCache = GeoCache("","", Calendar.getInstance().time,Calendar.getInstance().time)
     private lateinit var cacheText : EditText
     private lateinit var whereText : EditText
     private lateinit var infoText : TextView

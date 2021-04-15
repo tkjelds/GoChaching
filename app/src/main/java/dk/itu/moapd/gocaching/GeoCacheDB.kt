@@ -2,22 +2,25 @@ package dk.itu.moapd.gocaching
 
 import android.content.Context
 import android.location.Geocoder
+import java.io.Console
+import java.sql.Date
+import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class GeoCacheDB private constructor(context:Context){
     private val geoCaches = ArrayList < GeoCache >()
-    private val lastCache = GeoCache("","", randomDate())
+    private val lastCache = GeoCache("","", Calendar.getInstance().time,Calendar.getInstance().time )
 
     init {
         geoCaches.add (
-                GeoCache ("Chair", "ITU", randomDate() )
+                GeoCache ("Chair", "ITU", Calendar.getInstance().time,Calendar.getInstance().time )
         )
         geoCaches.add (
-                GeoCache ("Bike", "Fields", randomDate() )
+                GeoCache ("Bike", "Fields", Calendar.getInstance().time,Calendar.getInstance().time )
         )
         geoCaches.add (
-                GeoCache ("Ticket", "Kobenhavns Lufthavn", randomDate() )
+                GeoCache ("Ticket", "Kobenhavns Lufthavn", Calendar.getInstance().time, Calendar.getInstance().time)
         )
 
 // You can add more geocache objects if you want to
@@ -28,20 +31,25 @@ class GeoCacheDB private constructor(context:Context){
         return geoCaches
     }
     fun addGeoCache(cache: String, where: String) {
-        val _cache = GeoCache(cache,where,randomDate())
+        val _cache = GeoCache(cache,where,Calendar.getInstance().time,Calendar.getInstance().time)
         lastCache.exchange(_cache)
         geoCaches.add(_cache)
     }
     fun updateGeoCache ( cache : String , where : String ) {
+        val updateDate_ = Calendar.getInstance().time
         geoCaches.find {x -> x == lastCache}?.apply { this.setCache(cache)
-                                                      this.setWhere(where)  }
+                                                      this.setWhere(where)
+                                                      this.setUpdateDate(updateDate_)}
     }
     fun getLastGeoCacheInfo () : String {
         return  lastCache.where
     }
 
-    fun deleteGeoCache (cache: GeoCache){
-        geoCaches.remove(cache)
+    fun deleteGeoCache (cache: GeoCache?){
+        if (cache == null) {
+
+        } else  geoCaches.remove(cache)
+
     }
     private fun randomDate () : Long {
 // This function gets the current timestamp and

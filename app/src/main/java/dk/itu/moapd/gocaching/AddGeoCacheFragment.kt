@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import java.util.*
 
 class AddGeoCacheFragment : Fragment() {
 
 
-        private val geoCache = GeoCache("","", 0)
+        private val geoCache = GeoCache("","", Calendar.getInstance().time,Calendar.getInstance().time)
         private lateinit var cacheText : EditText
         private lateinit var whereText : EditText
         private lateinit var infoText : TextView
