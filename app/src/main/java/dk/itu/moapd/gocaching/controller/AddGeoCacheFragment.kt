@@ -1,27 +1,25 @@
-package dk.itu.moapd.gocaching
+package dk.itu.moapd.gocaching.controller
 
-import android.content.Context
+import dk.itu.moapd.gocaching.GeoCache
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import java.util.*
+import androidx.lifecycle.ViewModelProviders
+import dk.itu.moapd.gocaching.*
+import dk.itu.moapd.gocaching.model.database.*
 
 class AddGeoCacheFragment : Fragment() {
 
 
-        private val geoCache = GeoCache("","", Calendar.getInstance().time,Calendar.getInstance().time)
         private lateinit var cacheText : EditText
         private lateinit var whereText : EditText
         private lateinit var infoText : TextView
         private lateinit var addButton : Button
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,29 +36,17 @@ class AddGeoCacheFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        geoCacheDB = GeoCacheDB.get(activity as Context)
-        //adapter = GeoCacheArrayAdapter(this, geoCacheDB.getGeoCaches())
         addButton.setOnClickListener { if (cacheText.text.isNotEmpty() && whereText.text.isNotEmpty()){
             val cache = cacheText.text.toString().trim()
             val where = whereText.text.toString().trim()
-            geoCache.setCache(cache)
-            geoCache.setWhere(where)
-            geoCacheDB.addGeoCache(cache, where)
-            GoCachingFragment.adapter.notifyDataSetChanged()
+            GoCachingFragment.geoCacheVM.insert(GeoCache(
+                where = where,
+                cache = cache
+            ))
             cacheText.text.clear()
             whereText.text.clear()
-            updateUI()
-            System.out.println(geoCacheDB.getGeoCaches().size)
+            GoCachingFragment.adapter.notifyDataSetChanged()
+            infoText.setText(R.string.cache_added)
         } }
     }
-
-
-        companion object {
-            lateinit var geoCacheDB : GeoCacheDB
-            //lateinit var adapter: GeoCacheArrayAdapter
-        }
-
-        private fun updateUI() {
-            infoText.setText(geoCache.toString())
-        }
 }

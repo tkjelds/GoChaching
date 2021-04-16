@@ -1,9 +1,8 @@
-package dk.itu.moapd.gocaching
+package dk.itu.moapd.gocaching.controller
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_edit_geo_cache.*
-import java.util.*
+import dk.itu.moapd.gocaching.R
 
 
 class EditGeoCacheActivity : AppCompatActivity() {

@@ -1,10 +1,8 @@
-package dk.itu.moapd.gocaching
+package dk.itu.moapd.gocaching.controller
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_go_caching.*
-import java.util.*
+import dk.itu.moapd.gocaching.R
 
 class GoCachingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
