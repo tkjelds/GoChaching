@@ -9,14 +9,24 @@ class EditGeoCacheActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_go_caching)
-        val currentFragment =
+        var currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container)
 
         if (currentFragment == null){
-            val fragment = EditGeoCacheFragment()
+            val longitude = intent.getDoubleExtra("longitude", 0.0)
+            val latitude = intent.getDoubleExtra("latitude", 0.0)
+
+            val bundle = Bundle().apply {
+                putDouble("longitude", longitude)
+                putDouble("latitude", latitude)
+            }
+
+            currentFragment = AddGeoCacheFragment().apply {
+                arguments = bundle
+            }
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.fragment_container,fragment)
+                .add(R.id.fragment_container,currentFragment)
                 .commit()
         }
     }

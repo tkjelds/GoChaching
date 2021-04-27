@@ -1,18 +1,23 @@
 package dk.itu.moapd.gocaching.controller
 
+import android.Manifest
 import dk.itu.moapd.gocaching.GeoCache
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.*
 import dk.itu.moapd.gocaching.R
 import dk.itu.moapd.gocaching.model.database.*
 import kotlinx.android.synthetic.main.fragment_go_caching.*
@@ -23,16 +28,26 @@ class GoCachingFragment: Fragment() {
     private lateinit var addCache: Button
     private lateinit var editCache: Button
     private lateinit var showList: Button
-
+    private var mLongitude = 0.0
+    private var mLatitude = 0.0
+    private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var mLocationCallback: LocationCallback
+    private val permissions: ArrayList<String> = ArrayList()
     companion object{
         lateinit var adapter: GeoCacheRecyclerAdapter
         lateinit var geoCacheVM: GeoCacheViewModel
+        private const val ALL_PERMISSIONS_RESULT = 1011
+        const val UPDATE_INTERVAL = 5000L
+        const val FASTEST_INTERVAL = 5000L
     }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_go_caching,container,false)
+        permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        permissions.add(Manifest.permission.GET_ACCOUNTS)
+        permissions.add(Manifest.permission.INTERNET)
         addCache = view.findViewById(R.id.add_cache_button) as Button
         editCache = view.findViewById(R.id.edit_cache_button) as Button
         showList = view.findViewById(R.id.list_caches_button) as Button
@@ -41,32 +56,67 @@ class GoCachingFragment: Fragment() {
         geoCacheVM.getGeoCaches().observe(this, Observer<List<GeoCache>> {
             adapter.setGeoCaches(it)
         })
+        val permissionsToRequest = permissionsToRequest(permissions)
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            if (permissionsToRequest.size > 0)
+                requestPermissions(
+                        permissionsToRequest.toTypedArray(),
+                        ALL_PERMISSIONS_RESULT
+                )
+        mFusedLocationProviderClient = LocationServices
+                .getFusedLocationProviderClient(context!!)
+
+        mLocationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                for (location in locationResult.locations) {
+                    mLongitude = location.longitude
+                    mLatitude = location.latitude
+                }
+            }
+        }
         return view
     }
+    override fun onResume() {
+        super.onResume()
+        startLocationUpdates()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cache_recycler_view.layoutManager = LinearLayoutManager(activity)
         cache_recycler_view.adapter = adapter
-    }
-    override fun onStart() {
-        super.onStart()
         adapter.notifyDataSetChanged()
 
         addCache.setOnClickListener {
-            val intent = Intent(activity, AddGeoCacheActivity::class.java)
+            val intent = Intent(activity, AddGeoCacheActivity::class.java).apply {
+                putExtra("longitude", mLongitude)
+                putExtra("latitude", mLatitude)
+            }
             startActivity(intent)
         }
 
         editCache.setOnClickListener {
-            val intent = Intent(activity, EditGeoCacheActivity::class.java)
+            val intent = Intent(activity, EditGeoCacheActivity::class.java).apply {
+                putExtra("longitude", mLongitude)
+                putExtra("latitude", mLatitude)
+            }
             startActivity(intent)
         }
         showList.setOnClickListener{
-            adapter.notifyDataSetChanged()
+            val intent = Intent(activity, MapsActivity::class.java).apply {
+                putExtra("longitude", mLongitude)
+                putExtra("latitude", mLatitude)
+            }
+            startActivity(intent)
         }
     }
+
     inner class GeoCacheViewHolder(view:View):
         RecyclerView.ViewHolder(view){
         val cache: TextView = view.findViewById(R.id.cache_text)
@@ -117,4 +167,49 @@ class GoCachingFragment: Fragment() {
         return DateFormat.getDateInstance(DateFormat.MEDIUM).format(date)
     }
 
+    private fun permissionsToRequest(
+            permissions:ArrayList<String>):ArrayList<String>{
+
+        val result: ArrayList<String> = ArrayList()
+        for (permission in permissions)
+            if (!hasPermission(permission))
+                result.add(permission)
+        return result
+    }
+
+    private fun hasPermission(permission:String) =
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            activity?.checkSelfPermission(permission) ==
+                    PackageManager.PERMISSION_GRANTED
+        else
+            true
+
+    private fun checkPermission() =
+            ActivityCompat.checkSelfPermission(
+                    context!!, Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(
+                            context!!, Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+
+    //@SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        if (checkPermission())
+            return
+
+        val locationRequest = LocationRequest().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            interval = UPDATE_INTERVAL
+            fastestInterval = FASTEST_INTERVAL
+        }
+
+        mFusedLocationProviderClient.requestLocationUpdates(
+                locationRequest, mLocationCallback, null
+        )
+    }
+
+    private fun stopLocationUpdates() {
+        mFusedLocationProviderClient
+                .removeLocationUpdates(mLocationCallback)
+    }
 }

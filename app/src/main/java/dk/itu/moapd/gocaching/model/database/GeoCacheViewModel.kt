@@ -1,10 +1,10 @@
 package dk.itu.moapd.gocaching.model.database
 
-import dk.itu.moapd.gocaching.GeoCache
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import dk.itu.moapd.gocaching.GeoCache
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -29,6 +29,10 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
 
     fun update(geoCache: GeoCache) = viewModelScope.launch {
         geoCacheRepository.update(geoCache)
+    }
+
+     fun updateGeoByCache(where_:String, cache_:String, updateDate_:Date) = viewModelScope.launch{
+        geoCacheRepository.updateGeoByCache(where_, cache_, updateDate_)
     }
 
     fun geoGeoCacheByWhere(where:String):LiveData<GeoCache?>{

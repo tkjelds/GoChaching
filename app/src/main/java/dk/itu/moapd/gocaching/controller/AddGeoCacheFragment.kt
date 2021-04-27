@@ -9,17 +9,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import dk.itu.moapd.gocaching.*
-import dk.itu.moapd.gocaching.model.database.*
+import dk.itu.moapd.gocaching.R
+import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.geoCacheVM
 
 class AddGeoCacheFragment : Fragment() {
 
+    private lateinit var cacheText : EditText
+    private lateinit var whereText : EditText
+    private lateinit var infoText : TextView
+    private lateinit var addButton : Button
 
-        private lateinit var cacheText : EditText
-        private lateinit var whereText : EditText
-        private lateinit var infoText : TextView
-        private lateinit var addButton : Button
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,22 +30,32 @@ class AddGeoCacheFragment : Fragment() {
         infoText = view.findViewById(R.id.info_text)
         addButton = view.findViewById(R.id.fragment_button)
         addButton.setText(R.string.add_button)
+
         return view
     }
 
+
     override fun onStart() {
         super.onStart()
+        assert(arguments != null)
+        var long = arguments!!.getDouble("longitude")
+        var lat = arguments!!.getDouble("latitude")
+        val mGPSCollector = GPSDataCollector(this.context!!)
         addButton.setOnClickListener { if (cacheText.text.isNotEmpty() && whereText.text.isNotEmpty()){
             val cache = cacheText.text.toString().trim()
-            val where = whereText.text.toString().trim()
-            GoCachingFragment.geoCacheVM.insert(GeoCache(
-                where = where,
-                cache = cache
-            ))
+            val where = mGPSCollector.getAddress(long, lat)
+            val gc = GeoCache(
+                    where = where,
+                    cache = cache,
+                    long_ = long,
+                    lat = lat)
+            geoCacheVM.insert(gc)
             cacheText.text.clear()
             whereText.text.clear()
             GoCachingFragment.adapter.notifyDataSetChanged()
-            infoText.setText(R.string.cache_added)
+            infoText.setText(where)
         } }
     }
+
+
 }

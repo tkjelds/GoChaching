@@ -11,4 +11,9 @@
     <string name="info_text_view">Info:</string>
     <string name="List_Caches">LIST CACHES</string>
     <string name="cache_added">CACHE ADDED</string>
+    <string
+        name="google_maps_key"
+        templateMergeStrategy="preserve"
+        translatable="false" >AIzaSyCn5LZRftoR2Z-6t_gD9uHm52z1YsKQpiY
+</string>
 </resources>

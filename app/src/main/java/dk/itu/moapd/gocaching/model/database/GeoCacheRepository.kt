@@ -1,8 +1,8 @@
 package dk.itu.moapd.gocaching.model.database
 
-import dk.itu.moapd.gocaching.GeoCache
 import android.app.Application
 import androidx.lifecycle.LiveData
+import dk.itu.moapd.gocaching.GeoCache
 import java.util.*
 
 class GeoCacheRepository (application: Application) {
@@ -26,7 +26,9 @@ class GeoCacheRepository (application: Application) {
     suspend fun update(geoCache: GeoCache){
         geoCacheDao.update(geoCache)
     }
-
+    suspend fun updateGeoByCache(where_:String, cache_:String, updateDate_:Date){
+        geoCacheDao.updateGeoByCache(where_, cache_, updateDate_)
+    }
     suspend fun delete(geoCache: GeoCache){
         geoCacheDao.delete(geoCache)
     }
@@ -38,6 +40,8 @@ class GeoCacheRepository (application: Application) {
     fun getGeoCacheByWhere(id:UUID):LiveData<GeoCache?>{
         return geoCacheDao.getGeoCacheById(id)
     }
+
+
 
 
 

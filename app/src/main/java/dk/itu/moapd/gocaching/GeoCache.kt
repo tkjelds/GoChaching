@@ -6,9 +6,11 @@ import java.util.*
 
 @Entity
 data class GeoCache(
-    @PrimaryKey val id: UUID = UUID.randomUUID(),
+    @PrimaryKey var id: UUID = UUID.randomUUID(),
     var where: String = "",
     var cache: String = "",
+    var lat: Double = 0.0,
+    var long_:Double = 0.0,
     var date: Date = Date(),
     var updateDate: Date = Date()
 )
