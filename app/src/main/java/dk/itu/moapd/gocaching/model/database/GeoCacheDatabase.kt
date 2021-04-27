@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import dk.itu.moapd.gocaching.GeoCache
 
 
-@Database(entities = [GeoCache :: class],version = 5)
+@Database(entities = [GeoCache :: class],version = 6)
 @TypeConverters(GeoCacheTypeConverters::class)
 abstract class GeoCacheDatabase : RoomDatabase() {
 
