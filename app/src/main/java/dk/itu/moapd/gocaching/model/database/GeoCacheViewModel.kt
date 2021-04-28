@@ -4,7 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import dk.itu.moapd.gocaching.CachesWithUser
 import dk.itu.moapd.gocaching.GeoCache
+import dk.itu.moapd.gocaching.User
+import dk.itu.moapd.gocaching.UserWithCaches
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -13,9 +16,15 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
     private val geoCacheRepository: GeoCacheRepository = GeoCacheRepository(application)
 
     private val geoCaches: LiveData<List<GeoCache>>
+    private val users: LiveData<List<User>>
+    private val cachesWithUser:LiveData<List<CachesWithUser>>
+    private val userWithCaches:LiveData<List<UserWithCaches>>
 
     init {
         geoCaches = geoCacheRepository.getGeoCaches()
+        users = geoCacheRepository.getUsers()
+        cachesWithUser = geoCacheRepository.getCachesWithUsers()
+        userWithCaches = geoCacheRepository.getUserWithCaches()
     }
 
 
@@ -47,5 +56,29 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
         return geoCaches
     }
 
+    fun insert(user: User) = viewModelScope.launch {
+        geoCacheRepository.insert(user)
+    }
+
+    fun delete(user: User) = viewModelScope.launch {
+        geoCacheRepository.delete(user)
+    }
+
+    fun update(user: User) = viewModelScope.launch {
+        geoCacheRepository.update(user)
+    }
+
+    fun getUsers(): LiveData<List<User>> {
+        return users
+    }
+    fun getUserWithCaches(): LiveData<List<UserWithCaches>>
+    {
+        return userWithCaches
+    }
+
+    fun getCachesWithUsers(): LiveData<List<CachesWithUser>>
+    {
+        return cachesWithUser
+    }
 
 }

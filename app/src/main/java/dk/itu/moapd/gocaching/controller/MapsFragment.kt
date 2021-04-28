@@ -20,7 +20,6 @@ class MapsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_map, container, false)
         assert(arguments != null)
         val longitude = arguments!!.getDouble("longitude")

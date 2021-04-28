@@ -13,12 +13,14 @@ class EditGeoCacheActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragment_container)
 
         if (currentFragment == null){
+            val where = intent.getStringExtra("cache")
             val longitude = intent.getDoubleExtra("longitude", 0.0)
             val latitude = intent.getDoubleExtra("latitude", 0.0)
 
             val bundle = Bundle().apply {
                 putDouble("longitude", longitude)
                 putDouble("latitude", latitude)
+                putString("cache",where)
             }
 
             currentFragment = AddGeoCacheFragment().apply {

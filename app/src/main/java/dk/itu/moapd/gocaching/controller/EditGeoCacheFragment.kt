@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import dk.itu.moapd.gocaching.*
+import kotlinx.android.synthetic.main.fragment_geo_cache.*
 import java.util.*
 
 class EditGeoCacheFragment : Fragment() {
@@ -17,6 +18,7 @@ class EditGeoCacheFragment : Fragment() {
     private lateinit var updateButton : Button
     private var long = 0.toDouble()
     private var lat = 0.toDouble()
+    private var cache = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,16 +33,18 @@ class EditGeoCacheFragment : Fragment() {
         assert(arguments != null)
         long = arguments!!.getDouble("longitude")
         lat = arguments!!.getDouble("latitude")
+        cache = arguments!!.getString("cache")
         return view
     }
 
     override fun onStart() {
         super.onStart()
+        cacheText.setText(cache)
         val mGPSCollector = GPSTranslator(this.context!!)
         updateButton.setOnClickListener { if (cacheText.text.isNotEmpty()){
             val cache = cacheText.text.toString().trim()
             var where = mGPSCollector.getAddress(long,lat)
-            GoCachingFragment.geoCacheVM.updateGeoByCache(cache,where,Date())
+            //GoCachingFragment.geoCacheVM.update(cache,where,Date())
             GoCachingFragment.adapter.notifyDataSetChanged()
             cacheText.text.clear()
             infoText.setText(where)

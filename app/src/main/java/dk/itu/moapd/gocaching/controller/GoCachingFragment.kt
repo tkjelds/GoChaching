@@ -1,7 +1,6 @@
 package dk.itu.moapd.gocaching.controller
 
 import android.Manifest
-import dk.itu.moapd.gocaching.GeoCache
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -15,13 +14,19 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
+import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.R
-import dk.itu.moapd.gocaching.model.database.*
+import dk.itu.moapd.gocaching.model.database.GeoCacheViewModel
+import dk.itu.moapd.gocaching.view.NPALinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_go_caching.*
+import kotlinx.coroutines.delay
 import java.text.DateFormat
+import java.util.Collections.list
+import kotlin.concurrent.thread
 
 class GoCachingFragment: Fragment() {
 
@@ -33,6 +38,7 @@ class GoCachingFragment: Fragment() {
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var mLocationCallback: LocationCallback
     private val permissions: ArrayList<String> = ArrayList()
+
     companion object{
         lateinit var adapter: GeoCacheRecyclerAdapter
         lateinit var geoCacheVM: GeoCacheViewModel
@@ -80,16 +86,18 @@ class GoCachingFragment: Fragment() {
     }
     override fun onResume() {
         super.onResume()
+        adapter.notifyDataSetChanged()
         startLocationUpdates()
     }
 
     override fun onPause() {
         super.onPause()
+        adapter.notifyDataSetChanged()
         stopLocationUpdates()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cache_recycler_view.layoutManager = LinearLayoutManager(activity)
+        cache_recycler_view.layoutManager = NPALinearLayoutManager(activity)
         cache_recycler_view.adapter = adapter
         adapter.notifyDataSetChanged()
 
@@ -105,6 +113,7 @@ class GoCachingFragment: Fragment() {
             val intent = Intent(activity, EditGeoCacheActivity::class.java).apply {
                 putExtra("longitude", mLongitude)
                 putExtra("latitude", mLatitude)
+                putExtra("cache","")
             }
             startActivity(intent)
         }
@@ -123,16 +132,15 @@ class GoCachingFragment: Fragment() {
         val where: TextView = view.findViewById(R.id.where_text)
         val date: TextView = view.findViewById(R.id.date_text)
         val updateDate: TextView = view.findViewById(R.id.updatedate_text)
-
+        val deleteButton: Button = view.findViewById(R.id.delete_button)
     }
 
     inner class GeoCacheRecyclerAdapter():
         RecyclerView.Adapter<GeoCacheViewHolder>() {
-
-        private var geoCaches = emptyList<GeoCache>()
+        private var geoCaches :ArrayList<GeoCache> = ArrayList()
 
         fun setGeoCaches(geoCaches_:List<GeoCache>){
-            geoCaches = geoCaches_
+            geoCaches = ArrayList(geoCaches_)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup,
@@ -150,9 +158,19 @@ class GoCachingFragment: Fragment() {
                 date.text = formatDate(geoCache.date)
                 updateDate.text = formatDate(geoCache.updateDate)
             }
-            holder.cache.setOnLongClickListener() {
+            holder.cache.setOnClickListener() {
+                GoCachingFragmentDialog(geoCaches[holder.absoluteAdapterPosition],
+                        position,
+                        mLongitude,
+                        mLatitude).show(childFragmentManager,
+                        "GoCachingFragmentDialog")
+            }
+            holder.deleteButton.setOnLongClickListener(){
+                val pos = holder.absoluteAdapterPosition
                 geoCacheVM.delete(geoCaches[holder.absoluteAdapterPosition])
-                adapter.notifyDataSetChanged()
+                geoCaches.removeAt(pos)
+                notifyItemRemoved(pos)
+                notifyItemRangeChanged(pos,itemCount)
                 true
             }
 

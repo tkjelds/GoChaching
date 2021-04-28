@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import dk.itu.moapd.gocaching.R
+import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.adapter
 import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.geoCacheVM
 
 class AddGeoCacheFragment : Fragment() {
@@ -52,7 +53,7 @@ class AddGeoCacheFragment : Fragment() {
             geoCacheVM.insert(gc)
             cacheText.text.clear()
             whereText.text.clear()
-            GoCachingFragment.adapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
             infoText.setText(where)
         } }
     }

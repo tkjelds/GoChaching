@@ -16,4 +16,7 @@
         templateMergeStrategy="preserve"
         translatable="false" >AIzaSyCn5LZRftoR2Z-6t_gD9uHm52z1YsKQpiY
 </string>
+    <string name="delete_geocache">Delete</string>
+    <string name="edit_geoCache">Edit Geocache</string>
+    <string name="geocache_menu">Geocache Menu</string>
 </resources>
