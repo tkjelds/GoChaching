@@ -40,7 +40,7 @@ class AddGeoCacheFragment : Fragment() {
         assert(arguments != null)
         var long = arguments!!.getDouble("longitude")
         var lat = arguments!!.getDouble("latitude")
-        val mGPSCollector = GPSDataCollector(this.context!!)
+        val mGPSCollector = GPSTranslator(this.context!!)
         addButton.setOnClickListener { if (cacheText.text.isNotEmpty() && whereText.text.isNotEmpty()){
             val cache = cacheText.text.toString().trim()
             val where = mGPSCollector.getAddress(long, lat)

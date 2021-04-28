@@ -36,7 +36,7 @@ class EditGeoCacheFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val mGPSCollector = GPSDataCollector(this.context!!)
+        val mGPSCollector = GPSTranslator(this.context!!)
         updateButton.setOnClickListener { if (cacheText.text.isNotEmpty()){
             val cache = cacheText.text.toString().trim()
             var where = mGPSCollector.getAddress(long,lat)
