@@ -29,7 +29,7 @@ import java.text.DateFormat
 class GoCachingFragment: Fragment() {
 
     private lateinit var addCache: Button
-    private lateinit var editCache: Button
+    private lateinit var registerCacheButton: Button
     private lateinit var showList: Button
     private var mLongitude = 0.0
     private var mLatitude = 0.0
@@ -52,8 +52,9 @@ class GoCachingFragment: Fragment() {
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
         permissions.add(Manifest.permission.GET_ACCOUNTS)
         permissions.add(Manifest.permission.INTERNET)
+        permissions.add(Manifest.permission.CAMERA)
         addCache = view.findViewById(R.id.add_cache_button) as Button
-        editCache = view.findViewById(R.id.edit_cache_button) as Button
+        registerCacheButton = view.findViewById(R.id.regsiter_cache_button) as Button
         showList = view.findViewById(R.id.list_caches_button) as Button
         adapter = GeoCacheRecyclerAdapter()
         geoCacheVM = ViewModelProviders.of(this).get(GeoCacheViewModel::class.java)
@@ -107,12 +108,8 @@ class GoCachingFragment: Fragment() {
             startActivity(intent)
         }
 
-        editCache.setOnClickListener {
-            val intent = Intent(activity, EditGeoCacheActivity::class.java).apply {
-                putExtra("longitude", mLongitude)
-                putExtra("latitude", mLatitude)
-                putExtra("cache","")
-            }
+        registerCacheButton.setOnClickListener {
+            val intent = Intent(activity, RegisterGeoCacheActivity::class.java)
             startActivity(intent)
         }
         showList.setOnClickListener{

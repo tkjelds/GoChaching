@@ -29,6 +29,7 @@ data class User(
     @PrimaryKey var uid: UUID = UUID.randomUUID(),
     var name: String = "",
     var email: String = "",
+    var password: String = "",
     var isAdmin: Boolean = false
 )
 

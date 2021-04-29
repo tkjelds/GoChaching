@@ -20,4 +20,12 @@
     <string name="edit_geoCache">Edit Geocache</string>
     <string name="geocache_menu">Geocache Menu</string>
     <string name="capture">Capture</string>
+    <string name="register_geocache">Register a geoCache</string>
+    <string name="register">Register</string>
+    <string name="Map">Map</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeatps">Please repeat password</string>
+    <string name="login">Login</string>
+    <string name="name">Name</string>
 </resources>
