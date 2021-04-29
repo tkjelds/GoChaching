@@ -1,6 +1,8 @@
 package dk.itu.moapd.gocaching
 
 import androidx.room.*
+import dk.itu.moapd.gocaching.model.database.Category
+import dk.itu.moapd.gocaching.model.database.Category.*
 import dk.itu.moapd.gocaching.model.database.Difficulty
 import dk.itu.moapd.gocaching.model.database.Difficulty.*
 import java.util.*
@@ -14,8 +16,13 @@ data class GeoCache(
     var long_:Double = 0.0,
     var date: Date = Date(),
     var updateDate: Date = Date(),
-    var difficulty: Difficulty = EASY
-)
+    var difficulty: Difficulty = EASY,
+    var isApproved: Boolean = false,
+    var category: Category = DEFAULT
+) {
+        val photoFileName
+                get() = "IMG_$gcid.jpg"
+}
 
 @Entity
 data class User(

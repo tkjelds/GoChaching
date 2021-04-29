@@ -6,6 +6,7 @@ import dk.itu.moapd.gocaching.CachesWithUser
 import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.User
 import dk.itu.moapd.gocaching.UserWithCaches
+import java.io.File
 import java.util.*
 
 class GeoCacheRepository (application: Application) {
@@ -15,7 +16,7 @@ class GeoCacheRepository (application: Application) {
     private val users: LiveData<List<User>>
     private val cachesWithUser:LiveData<List<CachesWithUser>>
     private val userWithCaches:LiveData<List<UserWithCaches>>
-
+    private val filesDir = application.filesDir
 
     init {
         val db = GeoCacheDatabase.get(application)
@@ -73,4 +74,6 @@ class GeoCacheRepository (application: Application) {
     {
         return geoCacheDao.getCachesWithUser()
     }
+
+    fun getPhotoFile(geoCache: GeoCache):File = File(filesDir,geoCache.photoFileName)
 }

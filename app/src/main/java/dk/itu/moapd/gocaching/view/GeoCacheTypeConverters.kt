@@ -1,6 +1,8 @@
 package dk.itu.moapd.gocaching.view
 
 import androidx.room.TypeConverter
+import dk.itu.moapd.gocaching.model.database.Category
+import dk.itu.moapd.gocaching.model.database.Category.*
 import dk.itu.moapd.gocaching.model.database.Difficulty
 import java.util.*
 
@@ -41,5 +43,18 @@ class GeoCacheTypeConverters {
         if (difficulty == "HARD")
             return Difficulty.HARD
         return null
+    }
+
+    @TypeConverter
+    fun toCategory(category: String?):Category{
+        if (category != null){
+            return valueOf(category)
+        }
+        return DEFAULT
+    }
+
+    @TypeConverter
+    fun fromCategory(category: Category?):String?{
+        return category.toString()
     }
 }

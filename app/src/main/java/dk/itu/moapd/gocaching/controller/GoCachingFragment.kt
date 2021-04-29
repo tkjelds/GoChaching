@@ -3,30 +3,28 @@ package dk.itu.moapd.gocaching.controller
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Picture
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
 import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.R
+import dk.itu.moapd.gocaching.controller.PictureUtils
 import dk.itu.moapd.gocaching.model.database.GeoCacheViewModel
 import dk.itu.moapd.gocaching.view.NPALinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_go_caching.*
-import kotlinx.coroutines.delay
 import java.text.DateFormat
-import java.util.Collections.list
-import kotlin.concurrent.thread
 
 class GoCachingFragment: Fragment() {
 
@@ -133,6 +131,7 @@ class GoCachingFragment: Fragment() {
         val date: TextView = view.findViewById(R.id.date_text)
         val updateDate: TextView = view.findViewById(R.id.updatedate_text)
         val deleteButton: Button = view.findViewById(R.id.delete_button)
+        val photoView: ImageView = view.findViewById(R.id.cache_photo_view_list)
     }
 
     inner class GeoCacheRecyclerAdapter():
@@ -157,6 +156,7 @@ class GoCachingFragment: Fragment() {
                 where.text = geoCache.where
                 date.text = formatDate(geoCache.date)
                 updateDate.text = formatDate(geoCache.updateDate)
+                updatePhotoView(photoView,geoCache)
             }
             holder.cache.setOnClickListener() {
                 GoCachingFragmentDialog(geoCaches[holder.absoluteAdapterPosition],
@@ -178,6 +178,16 @@ class GoCachingFragment: Fragment() {
 
         override fun getItemCount(): Int {
             return geoCaches.size
+        }
+
+        private fun updatePhotoView(photoView: ImageView, geoCache: GeoCache){
+            val photofile = geoCacheVM.getPhotoFile(geoCache)
+            if (photofile.exists()){
+                val bitmap = PictureUtils().getScaledBitmap(photofile.path,requireActivity())
+                photoView.setImageBitmap(bitmap)
+            } else {
+                photoView.setImageDrawable(null)
+            }
         }
 
     }

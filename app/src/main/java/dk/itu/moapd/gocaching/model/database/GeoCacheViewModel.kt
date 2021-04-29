@@ -9,6 +9,7 @@ import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.User
 import dk.itu.moapd.gocaching.UserWithCaches
 import kotlinx.coroutines.launch
+import java.io.File
 import java.util.*
 
 class GeoCacheViewModel(application: Application) : AndroidViewModel(application){
@@ -79,6 +80,10 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
     fun getCachesWithUsers(): LiveData<List<CachesWithUser>>
     {
         return cachesWithUser
+    }
+
+    fun getPhotoFile(geoCache: GeoCache): File {
+        return geoCacheRepository.getPhotoFile(geoCache)
     }
 
 }

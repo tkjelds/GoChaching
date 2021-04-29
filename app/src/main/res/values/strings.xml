@@ -19,4 +19,5 @@
     <string name="delete_geocache">Delete</string>
     <string name="edit_geoCache">Edit Geocache</string>
     <string name="geocache_menu">Geocache Menu</string>
+    <string name="capture">Capture</string>
 </resources>
