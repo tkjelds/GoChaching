@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
 import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.R
+import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 import dk.itu.moapd.gocaching.controller.PictureUtils
 import dk.itu.moapd.gocaching.model.database.GeoCacheViewModel
 import dk.itu.moapd.gocaching.view.NPALinearLayoutManager
@@ -39,7 +40,6 @@ class GoCachingFragment: Fragment() {
 
     companion object{
         lateinit var adapter: GeoCacheRecyclerAdapter
-        lateinit var geoCacheVM: GeoCacheViewModel
         private const val ALL_PERMISSIONS_RESULT = 1011
         const val UPDATE_INTERVAL = 5000L
         const val FASTEST_INTERVAL = 5000L
@@ -57,7 +57,6 @@ class GoCachingFragment: Fragment() {
         registerCacheButton = view.findViewById(R.id.regsiter_cache_button) as Button
         showList = view.findViewById(R.id.list_caches_button) as Button
         adapter = GeoCacheRecyclerAdapter()
-        geoCacheVM = ViewModelProviders.of(this).get(GeoCacheViewModel::class.java)
         geoCacheVM.getGeoCaches().observe(this, Observer<List<GeoCache>> {
             adapter.setGeoCaches(it)
         })

@@ -13,18 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/customTheme">
-
-        <activity android:name=".controller.EditGeoCacheActivity"></activity>
-        <activity android:name=".controller.MapsActivity"/>
-        <activity android:name=".controller.AddGeoCacheActivity" />
-        <activity android:name=".controller.RegisterGeoCacheActivity"/>
-        <activity android:name=".controller.GoCachingActivity">
+        <activity android:name=".controller.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".controller.RegisterActivity"/>
+        <activity android:name=".controller.EditGeoCacheActivity"/>
+        <activity android:name=".controller.MapsActivity"/>
+        <activity android:name=".controller.AddGeoCacheActivity" />
+        <activity android:name=".controller.RegisterGeoCacheActivity"/>
+        <activity android:name=".controller.GoCachingActivity"/>
         <provider
             android:authorities="dk.itu.moapd.gocaching.fileprovider"
             android:name="androidx.core.content.FileProvider"

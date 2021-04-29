@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import dk.itu.moapd.gocaching.R
 import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.adapter
-import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.geoCacheVM
+import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 import java.io.File
 import java.net.URI
 import java.util.*

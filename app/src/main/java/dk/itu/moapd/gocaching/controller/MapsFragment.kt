@@ -10,8 +10,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import dk.itu.moapd.gocaching.R
-import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.geoCacheVM
 import dk.itu.moapd.gocaching.GeoCache
+import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 
 class MapsFragment : Fragment() {
 

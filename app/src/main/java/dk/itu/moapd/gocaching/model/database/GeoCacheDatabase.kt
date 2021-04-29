@@ -11,7 +11,7 @@ import dk.itu.moapd.gocaching.UserCacheCrossRef
 import dk.itu.moapd.gocaching.view.GeoCacheTypeConverters
 
 
-@Database(entities = [GeoCache :: class,User ::class,UserCacheCrossRef::class],version = 9)
+@Database(entities = [GeoCache :: class,User ::class,UserCacheCrossRef::class],version = 10)
 @TypeConverters(GeoCacheTypeConverters::class)
 abstract class GeoCacheDatabase : RoomDatabase() {
 

@@ -16,7 +16,7 @@ import androidx.lifecycle.Observer
 import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.R
 import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.adapter
-import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.geoCacheVM
+import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 import kotlinx.android.synthetic.main.fragment_go_caching.*
 import java.io.File
 import java.net.URI
