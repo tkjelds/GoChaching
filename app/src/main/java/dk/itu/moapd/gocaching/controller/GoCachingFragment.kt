@@ -1,6 +1,7 @@
 package dk.itu.moapd.gocaching.controller
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Picture
@@ -33,6 +34,7 @@ class GoCachingFragment: Fragment() {
     private lateinit var addCache: Button
     private lateinit var registerCacheButton: Button
     private lateinit var showList: Button
+    private lateinit var profileButton: Button
     private var mLongitude = 0.0
     private var mLatitude = 0.0
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
@@ -57,6 +59,7 @@ class GoCachingFragment: Fragment() {
         permissions.add(Manifest.permission.INTERNET)
         permissions.add(Manifest.permission.CAMERA)
         addCache = view.findViewById(R.id.add_cache_button) as Button
+        profileButton = view.findViewById(R.id.profile_button) as Button
         registerCacheButton = view.findViewById(R.id.regsiter_cache_button) as Button
         showList = view.findViewById(R.id.list_caches_button) as Button
         userEmail = arguments!!.getString("email")
@@ -118,7 +121,16 @@ class GoCachingFragment: Fragment() {
             val intent = Intent(activity, RegisterGeoCacheActivity::class.java)
             startActivity(intent)
         }
+
+        profileButton.setOnClickListener {
+            var intent = Intent(activity, ProfileActivity::class.java ).apply {
+                putExtra("email",userEmail)
+            }
+            startActivity(intent)
+        }
+
         showList.setOnClickListener{
+
             val intent = Intent(activity, MapsActivity::class.java).apply {
                 putExtra("longitude", mLongitude)
                 putExtra("latitude", mLatitude)

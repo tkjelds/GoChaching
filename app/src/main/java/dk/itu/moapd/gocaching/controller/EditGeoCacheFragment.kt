@@ -48,7 +48,6 @@ class EditGeoCacheFragment : Fragment() {
             GoCachingFragment.adapter.notifyDataSetChanged()
             cacheText.text.clear()
             infoText.setText(where)
-
         } }
     }
 }

@@ -40,4 +40,5 @@
     <string name="ps_requirment1">Must be atleast 8 characters long</string>
     <string name="ps_requirment2">Must contain both numbers and letters</string>
     <string name="ps_requirment3">Must contain at least one uppercase character or special character</string>
+    <string name="profile">Profile</string>
 </resources>
