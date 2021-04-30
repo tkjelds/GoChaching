@@ -41,4 +41,11 @@
     <string name="ps_requirment2">Must contain both numbers and letters</string>
     <string name="ps_requirment3">Must contain at least one uppercase character or special character</string>
     <string name="profile">Profile</string>
+    <string name="approve">Approve</string>
+    <string name="lat">Lat</string>
+    <string name="long_">Long</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="category">Category</string>
+    <string name="delete">Delete</string>
+
 </resources>

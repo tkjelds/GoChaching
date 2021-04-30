@@ -123,8 +123,14 @@ class GoCachingFragment: Fragment() {
         }
 
         profileButton.setOnClickListener {
+
             var intent = Intent(activity, ProfileActivity::class.java ).apply {
                 putExtra("email",userEmail)
+            }
+            if (user.isAdmin){
+                intent = Intent(activity,AdminActivity::class.java).apply {
+                    userEmail
+                }
             }
             startActivity(intent)
         }
