@@ -25,7 +25,19 @@
     <string name="Map">Map</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="repeatps">Please repeat password</string>
+    <string name="repeatps">Repeat password</string>
     <string name="login">Login</string>
     <string name="name">Name</string>
+    <string name="Username">User Name</string>
+    <string name="caches_found">Caches Found: </string>
+    <string name="easy_cache">Easy Caches: </string>
+    <string name="medium_cache">Medium Caches: </string>
+    <string name="Hard_cache">Hard Caches: </string>
+    <string name="new_password">New Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="confirm">Confirm</string>
+    <string name="ps_requirment1">Must be atleast 8 characters long</string>
+    <string name="ps_requirment2">Must contain both numbers and letters</string>
+    <string name="ps_requirment3">Must contain at least one uppercase character or special character</string>
 </resources>

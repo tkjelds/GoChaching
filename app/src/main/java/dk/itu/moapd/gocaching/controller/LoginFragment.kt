@@ -48,7 +48,9 @@ class LoginFragment:Fragment() {
                 val email = emailEditText.text.toString()
                 val user = users.find { user -> user.email == email}
                 if (user != null && user.password == passwordEditText.text.toString() ){
-                    val intent = Intent(activity, GoCachingActivity::class.java)
+                    val intent = Intent(activity, GoCachingActivity::class.java).apply {
+                        putExtra("email", user.email)
+                    }
                     startActivity(intent)
                 }
             }

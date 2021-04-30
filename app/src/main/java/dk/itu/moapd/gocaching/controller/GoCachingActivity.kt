@@ -11,7 +11,15 @@ class GoCachingActivity : AppCompatActivity() {
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment == null){
-            val fragment = GoCachingFragment()
+            val email = intent.getStringExtra("email")
+
+            val bundle = Bundle().apply {
+                putString("email", email)
+            }
+
+            val fragment = GoCachingFragment().apply {
+                arguments = bundle
+            }
             supportFragmentManager
                     .beginTransaction()
                     .add(R.id.fragment_container,fragment)

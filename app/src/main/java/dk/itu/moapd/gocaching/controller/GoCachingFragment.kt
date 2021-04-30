@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.*
 import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.R
+import dk.itu.moapd.gocaching.User
 import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 import dk.itu.moapd.gocaching.controller.PictureUtils
 import dk.itu.moapd.gocaching.model.database.GeoCacheViewModel
@@ -37,6 +38,8 @@ class GoCachingFragment: Fragment() {
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var mLocationCallback: LocationCallback
     private val permissions: ArrayList<String> = ArrayList()
+    private var userEmail = ""
+    private lateinit var user: User
 
     companion object{
         lateinit var adapter: GeoCacheRecyclerAdapter
@@ -56,6 +59,10 @@ class GoCachingFragment: Fragment() {
         addCache = view.findViewById(R.id.add_cache_button) as Button
         registerCacheButton = view.findViewById(R.id.regsiter_cache_button) as Button
         showList = view.findViewById(R.id.list_caches_button) as Button
+        userEmail = arguments!!.getString("email")
+        geoCacheVM.getUsers().observe(this, Observer<List<User>> {
+            user = it.find{ user -> user.email == userEmail}!!
+        })
         adapter = GeoCacheRecyclerAdapter()
         geoCacheVM.getGeoCaches().observe(this, Observer<List<GeoCache>> {
             adapter.setGeoCaches(it)
