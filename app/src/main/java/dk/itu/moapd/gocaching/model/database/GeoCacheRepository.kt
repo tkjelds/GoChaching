@@ -2,10 +2,7 @@ package dk.itu.moapd.gocaching.model.database
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import dk.itu.moapd.gocaching.CachesWithUser
-import dk.itu.moapd.gocaching.GeoCache
-import dk.itu.moapd.gocaching.User
-import dk.itu.moapd.gocaching.UserWithCaches
+import dk.itu.moapd.gocaching.*
 import java.io.File
 import java.util.*
 
@@ -35,6 +32,10 @@ class GeoCacheRepository (application: Application) {
 
     suspend fun update(geoCache: GeoCache){
         geoCacheDao.update(geoCache)
+    }
+
+    suspend fun insert(userCacheCrossRef: UserCacheCrossRef){
+        geoCacheDao.insert(userCacheCrossRef)
     }
     suspend fun updateGeoByCache(where_:String, cache_:String, updateDate_:Date){
         geoCacheDao.updateGeoByCache(where_, cache_, updateDate_)

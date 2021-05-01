@@ -68,7 +68,8 @@ class GoCachingFragment: Fragment() {
         })
         adapter = GeoCacheRecyclerAdapter()
         geoCacheVM.getGeoCaches().observe(this, Observer<List<GeoCache>> {
-            adapter.setGeoCaches(it)
+
+            adapter.setGeoCaches(it.filter {cache -> cache.isApproved})
         })
         val permissionsToRequest = permissionsToRequest(permissions)
 
@@ -118,7 +119,7 @@ class GoCachingFragment: Fragment() {
         }
 
         registerCacheButton.setOnClickListener {
-            val intent = Intent(activity, RegisterGeoCacheActivity::class.java)
+            val intent = Intent(activity, RegisterGeoCacheActivity::class.java).putExtra("email",userEmail)
             startActivity(intent)
         }
 

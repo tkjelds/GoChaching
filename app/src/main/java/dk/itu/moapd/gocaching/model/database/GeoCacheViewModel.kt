@@ -4,10 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import dk.itu.moapd.gocaching.CachesWithUser
-import dk.itu.moapd.gocaching.GeoCache
-import dk.itu.moapd.gocaching.User
-import dk.itu.moapd.gocaching.UserWithCaches
+import dk.itu.moapd.gocaching.*
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
@@ -40,7 +37,9 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
     fun update(geoCache: GeoCache) = viewModelScope.launch {
         geoCacheRepository.update(geoCache)
     }
-
+    fun insert(crossRef: UserCacheCrossRef) = viewModelScope.launch {
+        geoCacheRepository.insert(crossRef)
+    }
      fun updateGeoByCache(where_:String, cache_:String, updateDate_:Date) = viewModelScope.launch{
         geoCacheRepository.updateGeoByCache(where_, cache_, updateDate_)
     }

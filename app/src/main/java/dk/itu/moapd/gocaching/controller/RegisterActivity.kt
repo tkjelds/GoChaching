@@ -10,6 +10,9 @@ class RegisterActivity:AppCompatActivity() {
         setContentView(R.layout.activity_go_caching)
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container)
+
+
+
         if (currentFragment == null){
             val fragment = RegisterFragment()
             supportFragmentManager

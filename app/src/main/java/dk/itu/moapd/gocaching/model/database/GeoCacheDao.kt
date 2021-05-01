@@ -2,10 +2,7 @@ package dk.itu.moapd.gocaching.model.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import dk.itu.moapd.gocaching.CachesWithUser
-import dk.itu.moapd.gocaching.GeoCache
-import dk.itu.moapd.gocaching.User
-import dk.itu.moapd.gocaching.UserWithCaches
+import dk.itu.moapd.gocaching.*
 import java.util.*
 
 @Dao
@@ -27,6 +24,9 @@ interface GeoCacheDao {
 
     @Update
     suspend fun update(geoCache: GeoCache?)
+
+    @Insert
+    suspend fun insert(crossRef: UserCacheCrossRef?)
 
     @Delete
     suspend fun delete(geoCache: GeoCache?)
