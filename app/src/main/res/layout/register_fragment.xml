@@ -49,6 +49,33 @@
         android:layout_weight="1"
         android:textColor="@color/black"/>
 </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ps_requirment1"
+            android:id="@+id/register_ps_req1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ps_requirment2"
+            android:id="@+id/register_ps_req2"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/ps_requirment3"
+            android:id="@+id/register_ps_req3"/>
+
+    </LinearLayout>
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -71,6 +98,7 @@ android:orientation="horizontal">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@string/repeatps"
+    android:id="@+id/ps_repeat_req"
     android:gravity="center"
     android:layout_marginTop="20dp"
     android:layout_marginBottom="20dp"/>
