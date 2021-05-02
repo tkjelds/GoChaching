@@ -62,15 +62,6 @@ class GoCachingFragmentDialog(geocache:GeoCache,pos:Int,lon:Double,lat:Double): 
                                 }
                                 startActivityForResult(captureImage,2)
                         })
-                    .setNegativeButton(R.string.edit_cache_button,
-                            DialogInterface.OnClickListener { dialog, id ->
-                                val intent = Intent(activity, EditGeoCacheActivity::class.java).apply {
-                                    putExtra("longitude", lon)
-                                    putExtra("latitude", lat)
-                                   // putExtra("cache",geocache.cache)
-                                }
-                                startActivity(intent)
-                            })
             // Create the AlertDialog object and return it
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

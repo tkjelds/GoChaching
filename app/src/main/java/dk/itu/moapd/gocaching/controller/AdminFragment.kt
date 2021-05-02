@@ -86,10 +86,12 @@ class AdminFragment:Fragment() {
                 category.text = geoCache.category.toString()
             }
             holder.approveButton.setOnClickListener {
-                val gc = geoCaches[holder.absoluteAdapterPosition]
-                geoCacheVM.delete(gc)
-                this.notifyDataSetChanged()
-                geoCacheVM.insert(GeoCache(
+                val pos = holder.absoluteAdapterPosition
+                val gc = geoCaches[pos]
+                geoCaches.removeAt(pos)
+                this.notifyItemRemoved(pos)
+                this.notifyItemRangeChanged(pos, itemCount)
+                geoCacheVM.update(GeoCache(
                         gcid =  gc.gcid,
                         where = gc.where,
                         date = gc.date,
@@ -100,7 +102,6 @@ class AdminFragment:Fragment() {
                         long_ = gc.long_,
                         category = gc.category
                 ))
-                this.notifyDataSetChanged()
             }
 
             holder.deleteButton.setOnClickListener {

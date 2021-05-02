@@ -47,13 +47,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/category_text"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/difficulty_text"
+            android:layout_margin="5dp" />
         <ImageView
             android:id="@+id/cache_photo_view_list"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside"
             android:cropToPadding="true"
-            android:background="@color/black"/>
+            android:background="@color/black"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/go_caching_capture_button"
+            android:text="@string/capture"
+            android:textSize="8dp"
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </LinearLayout>

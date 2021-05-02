@@ -15,64 +15,65 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="2"
         android:layout_height="match_parent"
+        android:layout_weight="2"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:text="@string/app_name"
-            android:gravity="center_horizontal"
-            android:background="@color/purple_700"
-            android:textColor="@color/white"
-            android:textSize="20dp"
             android:layout_margin="20dp"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            />
+            android:background="@color/purple_700"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+
+
         <Button
+            android:id="@+id/profile_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/profile"
             android:layout_gravity="center"
-            android:id="@+id/profile_button"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            />
+            android:text="@string/profile" />
+
+
+
         <Button
             android:id="@+id/add_cache_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/add_cache_button"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            />
+            android:text="@string/add_cache_button" />
+
+
+
         <Button
             android:id="@+id/regsiter_cache_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/register_geocache"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:text="@string/register_geocache" />
+
+
+
         <Button
             android:id="@+id/list_caches_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/Map"
-            />
+            android:text="@string/Map" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/go_caching_refresh_button"
+            android:text="@string/refresh"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_weight="2"

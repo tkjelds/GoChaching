@@ -35,6 +35,7 @@ class GoCachingFragment: Fragment() {
     private lateinit var registerCacheButton: Button
     private lateinit var showList: Button
     private lateinit var profileButton: Button
+    private lateinit var refreshButton : Button
     private var mLongitude = 0.0
     private var mLatitude = 0.0
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
@@ -62,6 +63,7 @@ class GoCachingFragment: Fragment() {
         profileButton = view.findViewById(R.id.profile_button) as Button
         registerCacheButton = view.findViewById(R.id.regsiter_cache_button) as Button
         showList = view.findViewById(R.id.list_caches_button) as Button
+        refreshButton = view.findViewById(R.id.go_caching_refresh_button) as Button
         userEmail = arguments!!.getString("email")
         geoCacheVM.getUsers().observe(this, Observer<List<User>> {
             user = it.find{ user -> user.email == userEmail}!!
@@ -143,6 +145,10 @@ class GoCachingFragment: Fragment() {
             }
             startActivity(intent)
         }
+
+        refreshButton.setOnClickListener {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     inner class GeoCacheViewHolder(view:View):
@@ -153,6 +159,9 @@ class GoCachingFragment: Fragment() {
         val updateDate: TextView = view.findViewById(R.id.updatedate_text)
         val deleteButton: Button = view.findViewById(R.id.delete_button)
         val photoView: ImageView = view.findViewById(R.id.cache_photo_view_list)
+        val catView : TextView = view.findViewById(R.id.category_text)
+        val difView : TextView = view.findViewById(R.id.difficulty_text)
+        val captureButton : Button = view.findViewById(R.id.go_caching_capture_button)
     }
 
     inner class GeoCacheRecyclerAdapter():
@@ -177,14 +186,9 @@ class GoCachingFragment: Fragment() {
                 where.text = geoCache.where
                 date.text = formatDate(geoCache.date)
                 updateDate.text = formatDate(geoCache.updateDate)
+                catView.text = geoCache.category.toString()
+                difView.text = geoCache.difficulty.toString()
                 updatePhotoView(photoView,geoCache)
-            }
-            holder.cache.setOnClickListener() {
-                GoCachingFragmentDialog(geoCaches[holder.absoluteAdapterPosition],
-                        position,
-                        mLongitude,
-                        mLatitude).show(childFragmentManager,
-                        "GoCachingFragmentDialog")
             }
             holder.deleteButton.setOnLongClickListener(){
                 val pos = holder.absoluteAdapterPosition
@@ -194,6 +198,14 @@ class GoCachingFragment: Fragment() {
                 notifyItemRangeChanged(pos,itemCount)
                 true
             }
+            holder.captureButton.setOnClickListener {
+                GoCachingFragmentDialog(geoCaches[holder.absoluteAdapterPosition],
+                        position,
+                        mLongitude,
+                        mLatitude).show(childFragmentManager,
+                        "GoCachingFragmentDialog")
+            }
+
 
         }
 

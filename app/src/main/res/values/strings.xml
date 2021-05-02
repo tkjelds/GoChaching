@@ -48,5 +48,6 @@
     <string name="category">Category</string>
     <string name="delete">Delete</string>
     <string name="repeat">Repeat your new password</string>
+    <string name="refresh">Refresh</string>
 
 </resources>
