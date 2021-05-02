@@ -21,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.RegisterActivity"/>
-        <activity android:name=".controller.EditGeoCacheActivity"/>
         <activity android:name=".controller.MapsActivity"/>
         <activity android:name=".controller.AddGeoCacheActivity" />
         <activity android:name=".controller.RegisterGeoCacheActivity"/>
@@ -29,8 +28,6 @@
         <activity android:name=".controller.ResetPasswordActivity"/>
         <activity android:name=".controller.ProfileActivity"/>
         <activity android:name=".controller.GoCachingActivity"/>
-
-
         <provider
             android:authorities="dk.itu.moapd.gocaching.fileprovider"
             android:name="androidx.core.content.FileProvider"

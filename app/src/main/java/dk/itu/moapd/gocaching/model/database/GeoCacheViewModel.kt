@@ -9,14 +9,14 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
 
-class GeoCacheViewModel(application: Application) : AndroidViewModel(application){
+class GeoCacheViewModel(application: Application) : AndroidViewModel(application) {
 
     private val geoCacheRepository: GeoCacheRepository = GeoCacheRepository(application)
 
     private val geoCaches: LiveData<List<GeoCache>>
     private val users: LiveData<List<User>>
-    private val cachesWithUser:LiveData<List<CachesWithUser>>
-    private val userWithCaches:LiveData<List<UserWithCaches>>
+    private val cachesWithUser: LiveData<List<CachesWithUser>>
+    private val userWithCaches: LiveData<List<UserWithCaches>>
 
     init {
         geoCaches = geoCacheRepository.getGeoCaches()
@@ -37,22 +37,24 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
     fun update(geoCache: GeoCache) = viewModelScope.launch {
         geoCacheRepository.update(geoCache)
     }
+
     fun insert(crossRef: UserCacheCrossRef) = viewModelScope.launch {
         geoCacheRepository.insert(crossRef)
     }
-     fun updateGeoByCache(where_:String, cache_:String, updateDate_:Date) = viewModelScope.launch{
+
+    fun updateGeoByCache(where_: String, cache_: String, updateDate_: Date) = viewModelScope.launch {
         geoCacheRepository.updateGeoByCache(where_, cache_, updateDate_)
     }
 
-    fun updatePasswordByEmail(password_:String, email_:String) = viewModelScope.launch {
+    fun updatePasswordByEmail(password_: String, email_: String) = viewModelScope.launch {
         geoCacheRepository.updatePasswordByEmail(password_, email_)
     }
 
-    fun geoGeoCacheByWhere(where:String):LiveData<GeoCache?>{
+    fun geoGeoCacheByWhere(where: String): LiveData<GeoCache?> {
         return geoCacheRepository.getGeoCacheByWhere(where)
     }
 
-    fun geoGeoCacheById(id:UUID):LiveData<GeoCache?>{
+    fun geoGeoCacheById(id: UUID): LiveData<GeoCache?> {
         return geoCacheRepository.getGeoCacheByWhere(id)
     }
 
@@ -75,13 +77,12 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
     fun getUsers(): LiveData<List<User>> {
         return users
     }
-    fun getUserWithCaches(): LiveData<List<UserWithCaches>>
-    {
+
+    fun getUserWithCaches(): LiveData<List<UserWithCaches>> {
         return userWithCaches
     }
 
-    fun getCachesWithUsers(): LiveData<List<CachesWithUser>>
-    {
+    fun getCachesWithUsers(): LiveData<List<CachesWithUser>> {
         return cachesWithUser
     }
 

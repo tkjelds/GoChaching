@@ -2,35 +2,35 @@ package dk.itu.moapd.gocaching
 
 import androidx.room.*
 import dk.itu.moapd.gocaching.model.database.Category
-import dk.itu.moapd.gocaching.model.database.Category.*
+import dk.itu.moapd.gocaching.model.database.Category.DEFAULT
 import dk.itu.moapd.gocaching.model.database.Difficulty
-import dk.itu.moapd.gocaching.model.database.Difficulty.*
+import dk.itu.moapd.gocaching.model.database.Difficulty.EASY
 import java.util.*
 
 @Entity
 data class GeoCache(
-    @PrimaryKey var gcid: UUID = UUID.randomUUID(),
-    var where: String = "",
-    var cache: String = "",
-    var lat: Double = 0.0,
-    var long_:Double = 0.0,
-    var date: Date = Date(),
-    var updateDate: Date = Date(),
-    var difficulty: Difficulty = EASY,
-    var isApproved: Boolean = false,
-    var category: Category = DEFAULT
+        @PrimaryKey var gcid: UUID = UUID.randomUUID(),
+        var where: String = "",
+        var cache: String = "",
+        var lat: Double = 0.0,
+        var long_: Double = 0.0,
+        var date: Date = Date(),
+        var updateDate: Date = Date(),
+        var difficulty: Difficulty = EASY,
+        var isApproved: Boolean = false,
+        var category: Category = DEFAULT
 ) {
-        val photoFileName
-                get() = "IMG_$gcid.jpg"
+    val photoFileName
+        get() = "IMG_$gcid.jpg"
 }
 
 @Entity
 data class User(
-    @PrimaryKey var uid: UUID = UUID.randomUUID(),
-    var name: String = "",
-    var email: String = "",
-    var password: String = "",
-    var isAdmin: Boolean = false
+        @PrimaryKey var uid: UUID = UUID.randomUUID(),
+        var name: String = "",
+        var email: String = "",
+        var password: String = "",
+        var isAdmin: Boolean = false
 )
 
 @Entity(primaryKeys = ["uid", "gcid"])

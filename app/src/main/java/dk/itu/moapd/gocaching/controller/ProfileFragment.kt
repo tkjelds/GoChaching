@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,7 +16,7 @@ import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 import dk.itu.moapd.gocaching.model.database.Difficulty
 
 
-class ProfileFragment:Fragment() {
+class ProfileFragment : Fragment() {
     private lateinit var nameTextField: TextView
     private lateinit var emailTextField: TextView
     private lateinit var easyCachesTextField: TextView
@@ -30,7 +29,7 @@ class ProfileFragment:Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.user_profile_menu,container,false)
+        var view = inflater.inflate(R.layout.user_profile_menu, container, false)
         nameTextField = view.findViewById(R.id.profile_name)
         emailTextField = view.findViewById(R.id.profile_email)
         easyCachesTextField = view.findViewById(R.id.profile_easy_cache_number)
@@ -44,30 +43,26 @@ class ProfileFragment:Fragment() {
     override fun onStart() {
         super.onStart()
         geoCacheVM.getUsers().observe(this, Observer<List<User>> {
-            user = it.find{ user -> user.email == userEmail}!!
-            nameTextField.setText(user.name)
-            emailTextField.setText(user.email)
-            geoCacheVM.getUserWithCaches().observe(this, Observer<List<UserWithCaches>>{
+            user = it.find { user -> user.email == userEmail }!!
+            nameTextField.text = user.name
+            emailTextField.text = user.email
+            geoCacheVM.getUserWithCaches().observe(this, Observer<List<UserWithCaches>> {
                 userChaches = it.find { userwithcache -> userwithcache.user.uid == user.uid }!!
                 var easyCaches = userChaches.caches.count { cache -> cache.difficulty == Difficulty.EASY }
                 var mediumCaches = userChaches.caches.count { cache -> cache.difficulty == Difficulty.MEDIUM }
                 var hardCaches = userChaches.caches.count { cache -> cache.difficulty == Difficulty.HARD }
-                easyCachesTextField.setText(easyCaches.toString())
-                mediumCachesTextField.setText(mediumCaches.toString())
-                hardCachesTextField.setText(hardCaches.toString())
+                easyCachesTextField.text = easyCaches.toString()
+                mediumCachesTextField.text = mediumCaches.toString()
+                hardCachesTextField.text = hardCaches.toString()
             })
 
         })
         resetPasswordButton.setOnClickListener {
-            val intent = Intent(activity,ResetPasswordActivity::class.java).apply {
-                putExtra("email",userEmail)
+            val intent = Intent(activity, ResetPasswordActivity::class.java).apply {
+                putExtra("email", userEmail)
             }
             startActivity(intent)
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 }

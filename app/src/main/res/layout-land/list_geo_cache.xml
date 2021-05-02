@@ -73,7 +73,8 @@
             android:id="@+id/go_caching_capture_button"
             android:text="@string/capture"
             android:textSize="8dp"
-            android:layout_weight="1"/>
+            android:layout_weight="0.3"
+            android:layout_marginLeft="5dp"/>
     </LinearLayout>
 
 </LinearLayout>

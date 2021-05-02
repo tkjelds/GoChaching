@@ -16,11 +16,11 @@ import dk.itu.moapd.gocaching.R
 import dk.itu.moapd.gocaching.User
 import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 
-class ResetPasswordFragment:Fragment() {
-    private lateinit var psReq1 : TextView
-    private lateinit var psReq2 : TextView
-    private lateinit var psReq3 : TextView
-    private lateinit var psRepeat : TextView
+class ResetPasswordFragment : Fragment() {
+    private lateinit var psReq1: TextView
+    private lateinit var psReq2: TextView
+    private lateinit var psReq3: TextView
+    private lateinit var psRepeat: TextView
     private lateinit var currentPasswordEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var repeatPasswordEditText: EditText
@@ -32,7 +32,7 @@ class ResetPasswordFragment:Fragment() {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.new_password_fragment,container,false)
+        var view = inflater.inflate(R.layout.new_password_fragment, container, false)
         psReq1 = view.findViewById(R.id.ps_req1)
         psReq2 = view.findViewById(R.id.ps_req2)
         psReq3 = view.findViewById(R.id.ps_req3)
@@ -49,7 +49,7 @@ class ResetPasswordFragment:Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        currentPasswordEditText.addTextChangedListener(object:TextWatcher{
+        currentPasswordEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -103,7 +103,7 @@ class ResetPasswordFragment:Fragment() {
         confirmButton.setOnClickListener {
             if (currentPasswordCorrectness &&
                     passwordCorrectness &&
-                    repeatCorrectness){
+                    repeatCorrectness) {
                 geoCacheVM.getUsers().observe(this@ResetPasswordFragment, Observer<List<User>> {
                     var user = it.find { u -> u.email == email }!!
                     geoCacheVM.update(User(
@@ -116,16 +116,17 @@ class ResetPasswordFragment:Fragment() {
                 })
                 this.activity!!.finish()
             }
-            if (!currentPasswordCorrectness) Toast.makeText(this.context,"Wrong Password",Toast.LENGTH_SHORT).show()
-            else Toast.makeText(this.context,"Your password does not fulfill the requirements",Toast.LENGTH_SHORT).show()
+            if (!currentPasswordCorrectness) Toast.makeText(this.context, "Wrong Password", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(this.context, "Your password does not fulfill the requirements", Toast.LENGTH_SHORT).show()
         }
 
     }
-    private fun passwordChecker(ps:CharSequence?):Boolean{
+
+    private fun passwordChecker(ps: CharSequence?): Boolean {
         var req1 = false
         var req2 = false
         var req3 = false
-        if (ps != null){
+        if (ps != null) {
             if (ps.length > 8) {
                 req1 = true
                 psReq1.setTextColor(resources.getColor(R.color.black))
@@ -133,19 +134,17 @@ class ResetPasswordFragment:Fragment() {
                 req1 = false
                 psReq1.setTextColor(resources.getColor(R.color.wrong_red))
             }
-            if(ps.any{ c -> c.isDigit()} && ps.any{ c -> c.isLetter()}){
+            if (ps.any { c -> c.isDigit() } && ps.any { c -> c.isLetter() }) {
                 req2 = true
                 psReq2.setTextColor(resources.getColor(R.color.black))
-            }
-            else {
+            } else {
                 req2 = false
                 psReq2.setTextColor(resources.getColor(R.color.wrong_red))
             }
-            if(ps.any{ c -> c.isUpperCase()} && ps.any{ c -> c.isLowerCase()}){
+            if (ps.any { c -> c.isUpperCase() } && ps.any { c -> c.isLowerCase() }) {
                 req3 = true
                 psReq3.setTextColor(resources.getColor(R.color.black))
-            }
-            else {
+            } else {
                 req3 = false
                 psReq3.setTextColor(resources.getColor(R.color.wrong_red))
             }

@@ -9,8 +9,8 @@ class GoCachingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_go_caching)
         val currentFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_container)
-        if (currentFragment == null){
+                supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment == null) {
             val email = intent.getStringExtra("email")
 
             val bundle = Bundle().apply {
@@ -22,7 +22,7 @@ class GoCachingActivity : AppCompatActivity() {
             }
             supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.fragment_container,fragment)
+                    .add(R.id.fragment_container, fragment)
                     .commit()
         }
     }

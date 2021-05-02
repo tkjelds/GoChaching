@@ -2,7 +2,8 @@ package dk.itu.moapd.gocaching.view
 
 import androidx.room.TypeConverter
 import dk.itu.moapd.gocaching.model.database.Category
-import dk.itu.moapd.gocaching.model.database.Category.*
+import dk.itu.moapd.gocaching.model.database.Category.DEFAULT
+import dk.itu.moapd.gocaching.model.database.Category.valueOf
 import dk.itu.moapd.gocaching.model.database.Difficulty
 import java.util.*
 
@@ -14,28 +15,29 @@ class GeoCacheTypeConverters {
     }
 
     @TypeConverter
-    fun toDate(millisSinceEpoch: Long?): Date?{
+    fun toDate(millisSinceEpoch: Long?): Date? {
         return millisSinceEpoch?.let {
             Date(it)
         }
     }
 
     @TypeConverter
-    fun toUUID(uuid: String?): UUID?{
+    fun toUUID(uuid: String?): UUID? {
         return UUID.fromString(uuid)
     }
 
     @TypeConverter
-    fun fromUUID(uuid: UUID?):String?{
+    fun fromUUID(uuid: UUID?): String? {
         return uuid.toString()
     }
 
     @TypeConverter
-    fun fromDifficulty(difficulty: Difficulty?):String?{
+    fun fromDifficulty(difficulty: Difficulty?): String? {
         return difficulty.toString()
     }
+
     @TypeConverter
-    fun toDifficulty(difficulty: String?):Difficulty?{
+    fun toDifficulty(difficulty: String?): Difficulty? {
         if (difficulty == "EASY")
             return Difficulty.EASY
         if (difficulty == "MEDIUM")
@@ -46,15 +48,15 @@ class GeoCacheTypeConverters {
     }
 
     @TypeConverter
-    fun toCategory(category: String?):Category{
-        if (category != null){
+    fun toCategory(category: String?): Category {
+        if (category != null) {
             return valueOf(category)
         }
         return DEFAULT
     }
 
     @TypeConverter
-    fun fromCategory(category: Category?):String?{
+    fun fromCategory(category: Category?): String? {
         return category.toString()
     }
 }

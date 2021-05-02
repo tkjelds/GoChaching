@@ -4,19 +4,18 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Point
-import androidx.core.app.ActivityCompat
 
-class PictureUtils() {
+class PictureUtils {
 
-    fun getScaledBitmap(path:String, activity: Activity):Bitmap{
+    fun getScaledBitmap(path: String, activity: Activity): Bitmap {
         val size = Point()
         activity.windowManager.defaultDisplay.getSize(size)
 
-        return getScaledBitmap(path,size.x,size.y)
+        return getScaledBitmap(path, size.x, size.y)
 
     }
 
-    fun getScaledBitmap(path:String,destWidth:Int,destHeight:Int):Bitmap{
+    fun getScaledBitmap(path: String, destWidth: Int, destHeight: Int): Bitmap {
         var options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(path)
@@ -25,11 +24,11 @@ class PictureUtils() {
         val srcHeight = options.outHeight.toFloat()
 
         var inSampleSize = 1
-        if (srcHeight>destHeight || srcWidth > destWidth){
+        if (srcHeight > destHeight || srcWidth > destWidth) {
             val heightScale = srcHeight / destHeight
             val widthScale = srcWidth / destWidth
 
-            val sampleScale = if(heightScale > widthScale){
+            val sampleScale = if (heightScale > widthScale) {
                 heightScale
             } else {
                 widthScale
@@ -39,6 +38,6 @@ class PictureUtils() {
         options = BitmapFactory.Options()
         options.inSampleSize = inSampleSize
 
-        return BitmapFactory.decodeFile(path,options)
+        return BitmapFactory.decodeFile(path, options)
     }
 }

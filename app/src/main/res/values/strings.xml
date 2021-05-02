@@ -49,5 +49,6 @@
     <string name="delete">Delete</string>
     <string name="repeat">Repeat your new password</string>
     <string name="refresh">Refresh</string>
+    <string name="route">Route</string>
 
 </resources>

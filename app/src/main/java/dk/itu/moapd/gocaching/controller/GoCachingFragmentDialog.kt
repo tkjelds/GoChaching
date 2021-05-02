@@ -9,19 +9,15 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
 import dk.itu.moapd.gocaching.GeoCache
 import dk.itu.moapd.gocaching.R
 import dk.itu.moapd.gocaching.controller.GoCachingFragment.Companion.adapter
 import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
-import kotlinx.android.synthetic.main.fragment_go_caching.*
 import java.io.File
-import java.net.URI
 
-class GoCachingFragmentDialog(geocache:GeoCache,pos:Int,lon:Double,lat:Double): DialogFragment() {
+class GoCachingFragmentDialog(geocache: GeoCache, pos: Int, lon: Double, lat: Double) : DialogFragment() {
     val geocache = geocache
     val pos = pos
     val lat = lat
@@ -44,24 +40,24 @@ class GoCachingFragmentDialog(geocache:GeoCache,pos:Int,lon:Double,lat:Double): 
                                 val captureImage = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                                 val resolvedActivity: ResolveInfo? =
                                         packageManager.resolveActivity(captureImage,
-                                            PackageManager.MATCH_DEFAULT_ONLY)
-                                if (resolvedActivity == null){
+                                                PackageManager.MATCH_DEFAULT_ONLY)
+                                if (resolvedActivity == null) {
                                     dialog.dismiss()
                                 }
-                                captureImage.putExtra(MediaStore.EXTRA_OUTPUT,photoURI)
+                                captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
 
                                 val cameraActivities: List<ResolveInfo> =
                                         packageManager.queryIntentActivities(captureImage,
-                                            PackageManager.MATCH_DEFAULT_ONLY)
-                                for (cameraActivity in cameraActivities){
+                                                PackageManager.MATCH_DEFAULT_ONLY)
+                                for (cameraActivity in cameraActivities) {
                                     requireActivity().grantUriPermission(
                                             cameraActivity.activityInfo.packageName,
                                             photoURI,
                                             Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                                     )
                                 }
-                                startActivityForResult(captureImage,2)
-                        })
+                                startActivityForResult(captureImage, 2)
+                            })
             // Create the AlertDialog object and return it
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

@@ -1,7 +1,7 @@
 package dk.itu.moapd.gocaching.controller
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import dk.itu.moapd.gocaching.R
 
 class AddGeoCacheActivity : AppCompatActivity() {
@@ -11,7 +11,7 @@ class AddGeoCacheActivity : AppCompatActivity() {
         var currentFragment =
                 supportFragmentManager.findFragmentById(R.id.fragment_container)
 
-        if (currentFragment == null){
+        if (currentFragment == null) {
             val longitude = intent.getDoubleExtra("longitude", 0.0)
             val latitude = intent.getDoubleExtra("latitude", 0.0)
 
@@ -25,7 +25,7 @@ class AddGeoCacheActivity : AppCompatActivity() {
             }
             supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.fragment_container,currentFragment)
+                    .add(R.id.fragment_container, currentFragment)
                     .commit()
         }
     }

@@ -3,14 +3,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import androidx.lifecycle.Observer
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import dk.itu.moapd.gocaching.R
 import dk.itu.moapd.gocaching.GeoCache
+import dk.itu.moapd.gocaching.R
 import dk.itu.moapd.gocaching.controller.LoginFragment.Companion.geoCacheVM
 
 class MapsFragment : Fragment() {
@@ -32,11 +32,12 @@ class MapsFragment : Fragment() {
                         .title("Current Location"))
                 geoCacheVM.getGeoCaches().observe(this@MapsFragment, Observer<List<GeoCache>> {
                     if (it != null) {
-                        for (cache in it){
-                            val pos = LatLng(cache.lat,cache.long_)
+                        for (cache in it) {
+                            val pos = LatLng(cache.lat, cache.long_)
                             addMarker(MarkerOptions().position(pos).title(cache.cache))
                         }
-                }})
+                    }
+                })
                 mapType = GoogleMap.MAP_TYPE_NORMAL
                 animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18f))
             }

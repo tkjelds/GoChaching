@@ -11,11 +11,12 @@ import dk.itu.moapd.gocaching.UserCacheCrossRef
 import dk.itu.moapd.gocaching.view.GeoCacheTypeConverters
 
 
-@Database(entities = [GeoCache :: class,User ::class,UserCacheCrossRef::class],version = 13)
+@Database(entities = [GeoCache::class, User::class, UserCacheCrossRef::class], version = 13)
 @TypeConverters(GeoCacheTypeConverters::class)
 abstract class GeoCacheDatabase : RoomDatabase() {
 
     abstract fun geoCacheDao(): GeoCacheDao
+
     companion object {
         // Use a singleton to prevent multiple instances of database
         // opening at the same time.
@@ -28,10 +29,10 @@ abstract class GeoCacheDatabase : RoomDatabase() {
                 return checkInstance
             synchronized(this) {
                 val created = Room.databaseBuilder(
-                    context.applicationContext,
-                    GeoCacheDatabase::class.java, "geocache_database")
-                    .fallbackToDestructiveMigration()
-                    .build()
+                        context.applicationContext,
+                        GeoCacheDatabase::class.java, "geocache_database")
+                        .fallbackToDestructiveMigration()
+                        .build()
                 instance = created
                 return created
             }
