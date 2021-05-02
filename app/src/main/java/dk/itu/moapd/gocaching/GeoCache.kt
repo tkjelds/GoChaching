@@ -17,7 +17,7 @@ data class GeoCache(
     var date: Date = Date(),
     var updateDate: Date = Date(),
     var difficulty: Difficulty = EASY,
-    var isApproved: Boolean = true,
+    var isApproved: Boolean = false,
     var category: Category = DEFAULT
 ) {
         val photoFileName

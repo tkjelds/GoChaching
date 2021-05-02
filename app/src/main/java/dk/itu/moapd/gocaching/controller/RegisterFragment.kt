@@ -118,7 +118,7 @@ class RegisterFragment:Fragment(){
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0 != null) {
-                    if (p0 == (passwordEditText.text.toString())) {
+                    if (p0.toString() == (passwordEditText.text.toString())) {
                         repeatCorrectness = true
                         psRepeat.setTextColor(resources.getColor(R.color.black))
                     } else {
@@ -137,13 +137,27 @@ class RegisterFragment:Fragment(){
             if(nameCorrectness &&
                     passwordCorrectness &&
                     emailCorrectness &&
-                    repeatCorrectness){
+                    repeatCorrectness
+                    && !users.any{us -> us.email == emailEditText.text.toString()}){
                 geoCacheVM.insert(User(
                         name = nameEditText.text.toString(),
                         email = emailEditText.text.toString(),
                         password = passwordEditText.text.toString()
                 ))
-            } else {
+                activity?.finish()
+            }
+            if (emailEditText.text.toString() == "admin"
+                    && passwordEditText.text.toString() == "admin"
+                    && !users.any { us -> us.email == "admin" && us.password == "admin"} ){
+                geoCacheVM.insert(User(
+                        name = "admin",
+                        email = "admin",
+                        password = "admin",
+                        isAdmin = true
+                ))
+                activity?.finish()
+            }
+            else {
                 Toast.makeText(this.context,"Invalid registration",Toast.LENGTH_SHORT)
             }
         }

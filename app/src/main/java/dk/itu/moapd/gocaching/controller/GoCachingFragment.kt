@@ -68,7 +68,6 @@ class GoCachingFragment: Fragment() {
         })
         adapter = GeoCacheRecyclerAdapter()
         geoCacheVM.getGeoCaches().observe(this, Observer<List<GeoCache>> {
-
             adapter.setGeoCaches(it.filter {cache -> cache.isApproved})
         })
         val permissionsToRequest = permissionsToRequest(permissions)
@@ -130,7 +129,7 @@ class GoCachingFragment: Fragment() {
             }
             if (user.isAdmin){
                 intent = Intent(activity,AdminActivity::class.java).apply {
-                    userEmail
+                    putExtra("email",userEmail)
                 }
             }
             startActivity(intent)

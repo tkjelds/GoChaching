@@ -33,7 +33,9 @@ class GeoCacheRepository (application: Application) {
     suspend fun update(geoCache: GeoCache){
         geoCacheDao.update(geoCache)
     }
-
+    suspend fun updatePasswordByEmail(password_:String,email_:String){
+        geoCacheDao.updatePasswordByEmail(password_, email_)
+    }
     suspend fun insert(userCacheCrossRef: UserCacheCrossRef){
         geoCacheDao.insert(userCacheCrossRef)
     }

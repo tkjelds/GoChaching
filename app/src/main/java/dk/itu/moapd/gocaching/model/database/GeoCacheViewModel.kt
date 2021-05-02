@@ -44,6 +44,10 @@ class GeoCacheViewModel(application: Application) : AndroidViewModel(application
         geoCacheRepository.updateGeoByCache(where_, cache_, updateDate_)
     }
 
+    fun updatePasswordByEmail(password_:String, email_:String) = viewModelScope.launch {
+        geoCacheRepository.updatePasswordByEmail(password_, email_)
+    }
+
     fun geoGeoCacheByWhere(where:String):LiveData<GeoCache?>{
         return geoCacheRepository.getGeoCacheByWhere(where)
     }

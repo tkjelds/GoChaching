@@ -47,5 +47,6 @@
     <string name="difficulty">Difficulty</string>
     <string name="category">Category</string>
     <string name="delete">Delete</string>
+    <string name="repeat">Repeat your new password</string>
 
 </resources>

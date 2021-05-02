@@ -19,6 +19,10 @@ interface GeoCacheDao {
 
     @Query("UPDATE GeoCache SET `where` =:where_ ,updateDate =:updateDate_ WHERE cache like :cache_ ")
     fun updateGeoByCache(where_:String, cache_:String, updateDate_:Date)
+
+    @Query("UPDATE User Set password =:password_ Where email like :email_")
+    fun updatePasswordByEmail(password_:String, email_:String)
+
     @Insert
     suspend fun insert(geoCache: GeoCache?)
 
