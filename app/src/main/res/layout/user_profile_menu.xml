@@ -76,6 +76,21 @@
         android:background="@color/purple_500"
         android:textColor="@color/white"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/profile_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

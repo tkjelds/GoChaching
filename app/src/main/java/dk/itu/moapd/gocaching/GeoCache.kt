@@ -18,7 +18,9 @@ data class GeoCache(
         var updateDate: Date = Date(),
         var difficulty: Difficulty = EASY,
         var isApproved: Boolean = false,
-        var category: Category = DEFAULT
+        var category: Category = DEFAULT,
+        var score: Int = 0,
+        var registrations : Int = 0
 ) {
     val photoFileName
         get() = "IMG_$gcid.jpg"

@@ -22,6 +22,7 @@ class ProfileFragment : Fragment() {
     private lateinit var easyCachesTextField: TextView
     private lateinit var mediumCachesTextField: TextView
     private lateinit var hardCachesTextField: TextView
+    private lateinit var scoreTextField:TextView
     private lateinit var resetPasswordButton: Button
     private lateinit var user: User
     private lateinit var userChaches: UserWithCaches
@@ -36,6 +37,7 @@ class ProfileFragment : Fragment() {
         mediumCachesTextField = view.findViewById(R.id.profile_medium_cache_number)
         hardCachesTextField = view.findViewById(R.id.profile_hard_cache_number)
         resetPasswordButton = view.findViewById(R.id.reset_password_button)
+        scoreTextField = view.findViewById(R.id.profile_score)
         userEmail = arguments!!.getString("email")
         return view
     }
@@ -51,9 +53,11 @@ class ProfileFragment : Fragment() {
                 var easyCaches = userChaches.caches.count { cache -> cache.difficulty == Difficulty.EASY }
                 var mediumCaches = userChaches.caches.count { cache -> cache.difficulty == Difficulty.MEDIUM }
                 var hardCaches = userChaches.caches.count { cache -> cache.difficulty == Difficulty.HARD }
+                var currentScore = userChaches.caches.sumBy { cache -> cache.score}
                 easyCachesTextField.text = easyCaches.toString()
                 mediumCachesTextField.text = mediumCaches.toString()
                 hardCachesTextField.text = hardCaches.toString()
+                scoreTextField.text = currentScore.toString()
             })
 
         })

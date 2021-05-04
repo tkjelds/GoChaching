@@ -50,5 +50,6 @@
     <string name="repeat">Repeat your new password</string>
     <string name="refresh">Refresh</string>
     <string name="route">Route</string>
+    <string name="score">Score</string>
 
 </resources>
